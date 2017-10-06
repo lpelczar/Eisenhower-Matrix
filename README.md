@@ -23,7 +23,7 @@ Bob is a beginner Codecooler. He is a good self-learner, but he has a problem to
   - urgent & not important items
   - not urgent & not important items
 
-    Urgent means that there's 3 days (72 hours) to deadline at least.
+    Urgent means that there's 3 days (72 hours) to deadline at most.
 
 2. As a user I would like to see a list TODO items sorted decreasing by deadline from chosen matrix's quarter with its details.
 
@@ -50,7 +50,7 @@ Bob is a beginner Codecooler. He is a good self-learner, but he has a problem to
 12. As a user I would like to see colored (only unmarked) todo_items:
   - green: if the deadline is coming far than 3 days
   - orange: if deadline is coming in the next 3 days
-  - red: if deadline is crossed
+  - red: if deadline is today
 
 13. As a user I would like to see a matrix formatted to the following table.
 
@@ -96,8 +96,6 @@ Bob is a beginner Codecooler. He is a good self-learner, but he has a problem to
 * Implement the *main.py* module and fulfill its specification.
 
 * You are allowed to implement your own custom functions and modules. Remember about clean code.
-
-* Remember about comments and docstrings.
 
 * All tests must pass.
 
@@ -185,7 +183,7 @@ __Instance methods__
 
 * ##### ` __init__(self) `
 
-  Constructs a *ToDoQuarter* object
+  Constructs a *ToDoQuarter* object with list of TodoItem objects
 
 * `sort_items(self)`
 
@@ -196,9 +194,9 @@ __Instance methods__
   Append *TodoItem* object to *todo_items* sorted decreasing by *deadline*.
   Raises *TypeError* if an argument *deadline* is not an instance of Datetime class.
 
-* `remove_item(self)`
+* `remove_item(self, index)`
 
-  Removes *TodoItem* object from *index* of list *todo_items*
+  Removes *TodoItem* object using *index* of list *todo_items*
 
 * `archive_items(self)`
 
@@ -233,7 +231,7 @@ __Attributes__
   
     key: string - status of todo_quarter, value: ToDoQuarter object
         
-        possible status of TODO quarter:
+        possible keys of TODO quarter:
         - 'IU' means that todo_quarter contains important todo_items & urgent
         - 'IN' means that todo_quarter contains important todo_items & not urgent
         - 'NU' means that todo_quarter contains not important todo_items & urgent
@@ -244,16 +242,17 @@ __Instance methods__
 
 * ##### `__init__(self) `
 
-  Constructs a *TodoMatrix* object with all possible quarters
+  Constructs a *TodoMatrix* object with dictionary of all possible quarters
 
 * `get_quarter(self, status)`
 
   Returns a chosen *TodoQuarter* object from a dictionary *todo_quarters*.
-  Status should be one of the posiible statuses ('IU', 'IN', 'NU', 'NN').
+  Status should be one of the possible statuses ('IU', 'IN', 'NU', 'NN').
 
 * `add_item(self, title, deadline, is_important=False)`
 
-  Append a *TodoQuarterItem* object to attribute *todo_items* in the properly *TodoQuarter* object.
+  Adds new item to dictionary *todo_quarters* using adequate key. You should use method *add_item* from *TodoQuarter* class.
+  
   Raises *TypeError* if an argument *deadline* is not an instance of Datetime class.
 
 * `add_items_from_file(self, file_name)`
@@ -278,7 +277,7 @@ __Instance methods__
 
 * `archive_items(self)`
 
-  Removes all *TodoItem* objects with a parameter *is_done* set to *True* from list *todo_items* in every element of  dictionary *todo_quarters*
+  Removes all *TodoItem* objects with a parameter *is_done* set to *True* from list *todo_items* in every element of dictionary *todo_quarters*
 
 * `__str__(self)`
 

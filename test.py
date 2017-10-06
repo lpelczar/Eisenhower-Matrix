@@ -13,7 +13,6 @@ class TodoItemTester(unittest.TestCase):
         item = TodoItem('implement ToDoItem class', date)
         self.assertEqual(item.title, 'implement ToDoItem class', "Wrong todo_item")
         self.assertEqual(item.deadline, date, 'Wrong deadline')
-        self.assertEqual(item.is_done, False, 'dupa')
         self.assertIsInstance
 
 
@@ -143,8 +142,8 @@ class TodoQuarterTester(unittest.TestCase):
 
         quarter.remove_item(1)
 
+        self.assertEqual(quarter.todo_items[1].title, 'code', 'Incorrect item')
         self.assertEqual(len(quarter.todo_items), 2, 'Incorrect lenght of todo_items list')
-        self.assertEqual(quarter.todo_items[1].title,'code', 'Incorrect item')
 
 
     def test_archive_items(self):
@@ -188,25 +187,6 @@ class TodoQuarterTester(unittest.TestCase):
 class TodoMatrixTester(unittest.TestCase):
 
 
-    def test_constructor(self):
-        matrix = TodoMatrix()
-        self.assertEqual(tuple(matrix.todo_quarters), ('IU', 'IN', 'NU', 'NN'))
-
-
-    def test_add_items_from_file(self):
-        matrix = TodoMatrix()
-        matrix.add_items_from_file('todo_items_read_test.csv')
-
-        self.assertEqual(matrix.todo_quarters['IU'].__str__(),
-                        '1. [ ] 5-6 make a coffee\n2. [ ] 6-6 read about OOP\n')
-        self.assertEqual(matrix.todo_quarters['IN'].__str__(),
-                        '1. [ ] 30-6 give mentors a feedback\n2. [ ] 23-10 go to the doctor\n')
-        self.assertEqual(matrix.todo_quarters['NU'].__str__(),
-                        '1. [ ] 7-6 start coding\n')
-        self.assertEqual(matrix.todo_quarters['NN'].__str__(),
-                        '1. [ ] 28-6 buy flowers\n2. [ ] 15-7 cook a dinner\n')
-
-
     def test_file_error(self):
         matrix = TodoMatrix()
         with self.assertRaises(FileNotFoundError, msg='Problem with open a file'):
@@ -216,14 +196,15 @@ class TodoMatrixTester(unittest.TestCase):
     def test_add_item(self):
         matrix = TodoMatrix()
         title = 'test add_item function'
-        date_urgent = datetime(2017, 6, 6)
-        date_not_urgent = datetime(2017, 7, 24)
+        today = datetime.now()
+        date_urgent = datetime(2017, today.month, today.day+1)
+        date_not_urgent = datetime(2017, today.month+1, 24)
 
         matrix.add_item(title, date_urgent, True)
         matrix.add_item(title, date_urgent, False)
         matrix.add_item(title, date_not_urgent, True)
         matrix.add_item(title, date_not_urgent, False)
-
+        #print(matrix.show_dict())
         self.assertEqual(matrix.todo_quarters['IU'].todo_items[0].title,
                         'test add_item function' )
         self.assertEqual(matrix.todo_quarters['IN'].todo_items[0].title,
@@ -243,8 +224,9 @@ class TodoMatrixTester(unittest.TestCase):
     def test_archive_items(self):
         matrix = TodoMatrix()
         title = 'test add_item function'
-        date_urgent = datetime(2017, 6, 6)
-        date_not_urgent = datetime(2017, 7, 24)
+        today = datetime.now()
+        date_urgent = datetime(2017, today.month, today.day + 1)
+        date_not_urgent = datetime(2017, today.month + 1, 24)
 
         matrix.add_item(title, date_urgent, True)
         matrix.add_item(title, date_urgent, False)
