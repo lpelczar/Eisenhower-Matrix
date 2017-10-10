@@ -3,6 +3,11 @@ from datetime import datetime
 
 class TodoItem():
     def __init__(self, title, deadline):
+        """
+        Constructs an ToDoItem object Raises ValueError if type of any argument is incorrect
+        :param title: str -> task title
+        :param deadline: datetime -> task deadline
+        """
         if not isinstance(deadline, datetime): raise ValueError('Deadline must be a Datetime object')
         if not isinstance(title, str): raise ValueError('Title must be a string')
         self.title = title
