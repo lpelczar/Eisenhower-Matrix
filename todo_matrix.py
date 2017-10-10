@@ -87,8 +87,8 @@ class TodoMatrix():
         in every element of dictionary todo_quarters
         :return:
         """
-        self.todo_quarters = {k: v for k, v in self.todo_quarters.items() if not k.is_done}
-
+        for k, v in self.todo_quarters.items():
+            self.todo_quarters[k] = [x for x in v.todo_items if not x.is_done]
 
     def __str__(self):
         """
