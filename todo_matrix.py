@@ -9,7 +9,7 @@ IMPORTANT_NOT_URGENT = 'IN'
 NOT_IMPORTANT_URGENT = 'NU'
 NOT_IMPORTANT_NOT_URGENT = 'NN'
 QUOTER_TYPES = (IMPORTANT_URGENT, IMPORTANT_NOT_URGENT, NOT_IMPORTANT_URGENT, NOT_IMPORTANT_NOT_URGENT)
-BE_A_DATETIME_OBJECT = 'Deadline must be a Datetime object'
+BE_A_DATETIME_OBJECT = 'Incorrect deadline'
 
 class TodoMatrix():
     def __init__(self):
@@ -39,9 +39,9 @@ class TodoMatrix():
         :param is_important: bool -> task importance
         :return: None
         """
-        if not isinstance(deadline, datetime): raise ValueError(BE_A_DATETIME_OBJECT)
+        if not isinstance(deadline, datetime): raise TypeError(BE_A_DATETIME_OBJECT)
         quoter_type = TodoMatrix.get_item_quoter_type(deadline, is_important)
-        self.todo_quarters.__getitem__(quoter_type).add_item(title, deadline)
+        self.todo_quarters.get(quoter_type, None).add_item(title, deadline)
 
 
 
@@ -95,12 +95,12 @@ class TodoMatrix():
         :return: str -> quoter type
         """
         now = datetime.now()
-        diff_hours = (deadline - now).seconds / SECONDS_IN_HOUR
-        if diff_hours <= URGENT_HOURS and is_important == True:
+        diff_hours = (deadline - now).total_seconds() / SECONDS_IN_HOUR
+        if diff_hours <= URGENT_HOURS and is_important:
             return IMPORTANT_URGENT
-        elif diff_hours > URGENT_HOURS and is_important == True:
+        elif diff_hours > URGENT_HOURS and is_important:
             return IMPORTANT_NOT_URGENT
-        elif diff_hours <= URGENT_HOURS and is_important == False:
+        elif diff_hours <= URGENT_HOURS and not is_important:
             return NOT_IMPORTANT_URGENT
-        elif diff_hours > URGENT_HOURS and is_important == False:
+        elif diff_hours > URGENT_HOURS and not is_important:
             return NOT_IMPORTANT_NOT_URGENT
