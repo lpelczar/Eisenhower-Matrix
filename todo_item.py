@@ -1,5 +1,8 @@
 from datetime import datetime
 
+BE_A_DATETIME_OBJECT = 'Deadline must be a Datetime object'
+BE_A_STRING = 'Title must be a string'
+
 
 class TodoItem():
     def __init__(self, title, deadline):
@@ -8,8 +11,8 @@ class TodoItem():
         :param title: str -> task title
         :param deadline: datetime -> task deadline
         """
-        if not isinstance(deadline, datetime): raise ValueError('Deadline must be a Datetime object')
-        if not isinstance(title, str): raise ValueError('Title must be a string')
+        if not isinstance(deadline, datetime): raise ValueError(BE_A_DATETIME_OBJECT)
+        if not isinstance(title, str): raise ValueError(BE_A_STRING)
         self.title = title
         self.deadline = deadline
         self.is_done = False

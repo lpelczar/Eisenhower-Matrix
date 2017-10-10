@@ -1,9 +1,24 @@
+from datetime import datetime
+
+from todo_quarter import TodoQuarter
+
+URGENT_HOURS = 72
+SECONDS_IN_HOUR = 3600
+IMPORTANT_URGENT = 'IU'
+IMPORTANT_NOT_URGENT = 'IN'
+NOT_IMPORTANT_URGENT = 'NU'
+NOT_IMPORTANT_NOT_URGENT = 'NN'
+QUOTER_TYPES = (IMPORTANT_URGENT, IMPORTANT_NOT_URGENT, NOT_IMPORTANT_URGENT, NOT_IMPORTANT_NOT_URGENT)
+BE_A_DATETIME_OBJECT = 'Deadline must be a Datetime object'
+
 class TodoMatrix():
     def __init__(self):
         """
         Constructs a TodoMatrix object with dictionary of all possible quarters
         """
-        ...
+        self.todo_quarters = {}
+        for quoter_type in QUOTER_TYPES:
+            self.todo_quarters[quoter_type] = TodoQuarter()
 
     def get_quarter(self, status):
         """
@@ -12,7 +27,7 @@ class TodoMatrix():
         :param status: str -> status of TodoQuarter
         :return: TodoQuarter
         """
-        ...
+        return self.todo_quarters.__getitem__(status)
 
     def add_item(self, title, deadline, is_important=False):
         """
@@ -24,7 +39,12 @@ class TodoMatrix():
         :param is_important: bool -> task importance
         :return: None
         """
-        ...
+        if not isinstance(deadline, datetime): raise ValueError(BE_A_DATETIME_OBJECT)
+        quoter_type = TodoMatrix.get_item_quoter_type(deadline, is_important)
+        self.todo_quarters.__getitem__(quoter_type).add_item(title, deadline)
+
+
+
 
     def add_items_from_file(self, file_name):
         """
@@ -58,9 +78,29 @@ class TodoMatrix():
         """
         ...
 
+
     def __str__(self):
         """
         Returns a todo_quarters list (an Eisenhower todo_matrix) formatted to string.
         :return: str
         """
         ...
+
+    @staticmethod
+    def get_item_quoter_type(deadline, is_important):
+        """
+        Returns the type of quoter to which item should be added
+        :param deadline: datetime -> deadline of item
+        :param is_important: bool -> is task important
+        :return: str -> quoter type
+        """
+        now = datetime.now()
+        diff_hours = (deadline - now).seconds / SECONDS_IN_HOUR
+        if diff_hours <= URGENT_HOURS and is_important == True:
+            return IMPORTANT_URGENT
+        elif diff_hours > URGENT_HOURS and is_important == True:
+            return IMPORTANT_NOT_URGENT
+        elif diff_hours <= URGENT_HOURS and is_important == False:
+            return NOT_IMPORTANT_URGENT
+        elif diff_hours > URGENT_HOURS and is_important == False:
+            return NOT_IMPORTANT_NOT_URGENT
