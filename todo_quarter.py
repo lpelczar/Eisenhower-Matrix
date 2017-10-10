@@ -43,3 +43,13 @@ class TodoQuarter():
         index is out of range list todo_items.
         """
         return self.todo_items[index]
+
+    def __str__(self):
+        """
+        Returns a formatted list of todo_items sorted decreasing by deadline.
+        There is an expecting output:
+        1. [ ] 9-6 go to the doctor 2. [x] 11-6 submit assignment
+        Hint: use instance method str() from class TodoItem
+        """
+        self.sort_items()
+        return ''.join([str(k+1) + '. ' + str(v) for k, v in enumerate(self.todo_items)])
