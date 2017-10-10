@@ -38,7 +38,7 @@ class TodoItem():
         :return: str
         """
         assignment_day = str(self.deadline.day)
-        assignment_year = str(self.deadline.year)
+        assignment_month = str(self.deadline.month)
         is_assignment_done_char = "x" if self.is_done else " "
-        output = "[" + is_assignment_done_char + " " + assignment_day + "-" + assignment_year + " submit assignment"
+        output = "[" + is_assignment_done_char + "]" + " " + assignment_day + "-" + assignment_month + '  ' + self.title
         return output
