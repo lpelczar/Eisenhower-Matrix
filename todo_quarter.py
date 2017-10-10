@@ -30,3 +30,16 @@ class TodoQuarter():
         Removes TodoItem object using index of list todo_items
         """
         self.todo_items.pop(index)
+
+    def archive_items(self):
+        """
+        Removes all TodoItem objects with a parameter is_done set to True from list todo_items.
+        """
+        self.todo_items = [x for x in self.todo_items if not x.is_done]
+
+    def get_item(self, index):
+        """
+        Returns TodoItem object from index of list todo_items. Raises IndexError if an argument
+        index is out of range list todo_items.
+        """
+        return self.todo_items[index]
