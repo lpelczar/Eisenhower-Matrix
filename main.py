@@ -1,42 +1,44 @@
 import os
 
 from todo_quarter import TodoQuarter
+from todo_matrix import TodoMatrix
 
 
-def handle_first_menu_option(*args, **kwargs):
+def handle_first_menu_option(TodoMatrix):
     print("1. IT works !")
 
 
-def handle_second_menu_option(*args, **kwargs):
+def handle_second_menu_option(TodoMatrix):
     print("2. IT works !")
 
 
-def handle_third_menu_option(*args, **kwargs):
+def handle_third_menu_option(TodoMatrix):
     print("3. IT works !")
 
 
-def handle_fourth_menu_option(*args, **kwargs):
+def handle_fourth_menu_option(TodoMatrix):
     print("4. IT works !")
 
 
-def handle_fifth_menu_option(*args, **kwargs):
+def handle_fifth_menu_option(TodoMatrix):
     print("5. IT works !")
 
 
-def handle_sixth_menu_option(*args, **kwargs):
+def handle_sixth_menu_option(TodoMatrix):
     print("6. IT works !")
 
 
-def handle_seventh_menu_option(*args, **kwargs):
+def handle_seventh_menu_option(TodoMatrix):
     print("7. IT works !")
 
 
-def handle_eighth_menu_option(*args, **kwargs):
+def handle_eighth_menu_option(TodoMatrix):
     print("8. IT works !")
 
 
-def handle_ninth_menu_option(*args, **kwargs):
+def handle_ninth_menu_option(TodoMatrix):
     print("Thank you for using the program !")
+    print(TodoMatrix)
     exit()
 
 
