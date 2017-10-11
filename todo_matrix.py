@@ -105,7 +105,7 @@ class TodoMatrix():
         :return:
         """
         for k, v in self.todo_quarters.items():
-            self.todo_quarters[k] = [x for x in v.todo_items if not x.is_done]
+            self.todo_quarters[k].todo_items = [x for x in v.todo_items if not x.is_done]
 
     def __str__(self):
         """

@@ -3,42 +3,55 @@ import os
 from todo_quarter import TodoQuarter
 from todo_matrix import TodoMatrix
 
+ITEMS_CSV_FILE_PATH = 'todo_items.csv'
 
+
+# Kamil
 def handle_first_menu_option(TodoMatrix):
     print("1. IT works !")
 
 
+#Kamil
 def handle_second_menu_option(TodoMatrix):
     print("2. IT works !")
 
 
+#Kamil
 def handle_third_menu_option(TodoMatrix):
     print("3. IT works !")
 
 
+#Łukasz
 def handle_fourth_menu_option(TodoMatrix):
     print("4. IT works !")
 
 
+#Łukasz
 def handle_fifth_menu_option(TodoMatrix):
     print("5. IT works !")
 
 
+#Łukasz
 def handle_sixth_menu_option(TodoMatrix):
     print("6. IT works !")
 
 
+#done
 def handle_seventh_menu_option(TodoMatrix):
-    print("7. IT works !")
+    TodoMatrix.archive_items()
+    print("7. Items have been archived")
 
 
+#done
 def handle_eighth_menu_option(TodoMatrix):
-    print("8. IT works !")
+    print(TodoMatrix)
 
 
+#done
 def handle_ninth_menu_option(TodoMatrix):
     print("Thank you for using the program !")
-    print(TodoMatrix)
+    TodoMatrix.archive_items
+    TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
     exit()
 
 
@@ -54,7 +67,8 @@ OPTIONS = {'1': ['Change status of TODO item', handle_first_menu_option],
 
 
 def main():
-    todo_matrix = TodoQuarter
+    todo_matrix = TodoMatrix
+    todo_matrix.add_items_from_file(ITEMS_CSV_FILE_PATH)
     while True:
         for key, value in OPTIONS.items():
             print(key + '. ' + value[0])
