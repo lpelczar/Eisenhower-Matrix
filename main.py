@@ -93,6 +93,7 @@ def handle_third_menu_option(TodoMatrix):
     :return: none
     """
     while True:
+        print(TodoMatrix)
         quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
         if quarter_name not in QUARTERS:
             print('Wrong quarter! ', end='')
@@ -102,6 +103,7 @@ def handle_third_menu_option(TodoMatrix):
             print('Wrong number! ', end='')
             continue
         break
+    print(OKGREEN + "\nSuccessfuly marked the task !\n" + ENDC)
     TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].mark()
 
 
@@ -112,6 +114,7 @@ def handle_fourth_menu_option(TodoMatrix):
     :return: none
     """
     while True:
+        print(TodoMatrix)
         quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
         if quarter_name not in QUARTERS:
             print('Wrong quarter! ', end='')
@@ -121,6 +124,7 @@ def handle_fourth_menu_option(TodoMatrix):
             print('Wrong number! ', end='')
             continue
         break
+    print(OKGREEN + "\nSuccessfuly unmarked the task !\n" + ENDC)
     TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].unmark()
 
 
@@ -131,6 +135,7 @@ def handle_fifth_menu_option(TodoMatrix):
     :return: none
     """
     while True:
+        print(TodoMatrix)
         quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
         if quarter_name not in QUARTERS:
             print('Wrong quarter! ', end='')
@@ -140,22 +145,35 @@ def handle_fifth_menu_option(TodoMatrix):
             print('Wrong number! ', end='')
             continue
         break
+    print(OKGREEN + "\nSuccessfuly removed the task !\n" + ENDC)
     TodoMatrix.todo_quarters[quarter_name].remove_item(int(item_number) - 1)
 
 
-#done
 def handle_sixth_menu_option(TodoMatrix):
+    """
+    Archives all marked TodoItems.
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
     TodoMatrix.archive_items()
     print('\n' + BOLD_GREEN + "Items have been archived !" + '\n' + ENDC)
 
 
-#done
 def handle_seventh_menu_option(TodoMatrix):
+    """
+    Prints formated matrix table !
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
     print(TodoMatrix)
 
 
-#done
 def handle_eighth_menu_option(TodoMatrix):
+    """
+    Close the program, archive all todoitems and save un-saved data
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
     print("Thank you for using the program !")
     TodoMatrix.archive_items()
     TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)

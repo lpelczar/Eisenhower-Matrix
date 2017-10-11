@@ -120,9 +120,9 @@ class TodoMatrix():
         """
         t = Texttable()
         t.add_rows(
-            [['', 'URGENT', 'NOT URGENT'],
-             ['IMPORTANT', self.get_table_row('IU'), self.get_table_row('IN')],
-             ['NOT IMPORTANT', self.get_table_row('NU'), self.get_table_row('NN')]])
+            [['', 'URGENT (U)', 'NOT URGENT (N)'],
+             ['IMPORTANT (I)', self.get_table_row('IU'), self.get_table_row('IN')],
+             ['NOT IMPORTANT (N)', self.get_table_row('NU'), self.get_table_row('NN')]])
 
         return t.draw()
     @staticmethod
