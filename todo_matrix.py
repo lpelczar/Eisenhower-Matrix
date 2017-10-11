@@ -77,6 +77,7 @@ class TodoMatrix():
             is_important = True if len(line) > 2 else False
             quarter_name = TodoMatrix.get_item_quoter_type(deadline, is_important)
             self.todo_quarters[quarter_name].todo_items.append(TodoItem(title, deadline))
+            self.todo_quarters[quarter_name].sort_items()
 
         file.close()
 
