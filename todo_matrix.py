@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from todo_quarter import TodoQuarter
+from todo_item import TodoItem
 
 URGENT_HOURS = 72
 SECONDS_IN_HOUR = 3600
@@ -55,12 +56,28 @@ class TodoMatrix():
         title|day-month|is_important
 
         If is_important is equal to False then last element is en empty string.
-        Otherwise the last element is an arbitrary string If the last element of
-        line is an empty string, is_important is equal to False - it means that the
+        Otherwise the last element is an arbitrary string.
+        If the last element of line is an empty string, is_important is equal to False - it means that the
         item should be assign to a not important TODO quarter.
         Otherwise item should be assign to an important TODO quarter.
         """
-        ...
+        try:
+            file = open(file_name, 'r')
+        except IOError:
+            raise FileNotFoundError
+
+        lines = file.read().splitlines()
+        for line in lines:
+            line = line.split('|')
+            title = line[0]
+            day, month = line[1].split('-')
+            deadline = datetime(2017, int(month), int(day))
+            is_important = True if len(line) > 2 else False
+            quarter_name = TodoMatrix.get_item_quoter_type(deadline, is_important)
+            self.todo_quarters[quarter_name].todo_items.append(TodoItem(title, deadline))
+
+        file.close()
+
 
     def save_items_to_file(self, file_name):
         """
@@ -75,9 +92,9 @@ class TodoMatrix():
         content = []
         for k, v in self.todo_quarters.items():
             for i in v.todo_items:
-                is_important = True if i.is_important else ' '
-                content.append(i.title + '|' + i.deadline.day + '-' +
-                               i.deadline.month + '|' + is_important + '\n')
+                is_important = 'important' if k in ['IU', 'IN'] else ''
+                content.append(i.title + '|' + str(i.deadline.day) + '-' +
+                               str(i.deadline.month) + '|' + is_important + '\n')
         with open(file_name, 'w') as f:
             f.write(''.join(content))
 
