@@ -101,9 +101,23 @@ def handle_fifth_menu_option(TodoMatrix):
     TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].unmark()
 
 
-#Łukasz Remove Todo Item
 def handle_sixth_menu_option(TodoMatrix):
-    print("6. IT works !")
+    """
+    Removes TodoItem.
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
+    while True:
+        quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
+        if quarter_name not in QUARTERS:
+            print('Wrong quarter! ', end='')
+            continue
+        item_number = input('Enter item number to remove: ')
+        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+            print('Wrong number! ', end='')
+            continue
+        break
+    TodoMatrix.todo_quarters[quarter_name].remove_item(int(item_number) - 1)
 
 
 #done
