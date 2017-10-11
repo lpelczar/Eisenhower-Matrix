@@ -52,4 +52,4 @@ class TodoQuarter():
         Hint: use instance method str() from class TodoItem
         """
         self.sort_items()
-        return ''.join([str(k+1) + '. ' + str(v) for k, v in enumerate(self.todo_items)])
+        return ''.join([str(k + 1) + '. ' + str(v) + ';' for k, v in enumerate(self.todo_items)])

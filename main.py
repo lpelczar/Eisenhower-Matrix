@@ -2,9 +2,24 @@ import os
 
 from todo_quarter import TodoQuarter
 from todo_matrix import TodoMatrix
+import todo_matrix
+from datetime import datetime
+
+METHOD_INDEX = 1
+
+DESCRIPTION_INDEX = 0
 
 ITEMS_CSV_FILE_PATH = 'todo_items.csv'
 
+# Colors
+HEADER = '\033[95m'
+OKBLUE = '\033[94m'
+OKGREEN = '\033[92m'
+WARNING = '\033[93m'
+FAIL = '\033[91m'
+ENDC = '\033[0m'
+BOLD = '\033[1m'
+UNDERLINE = '\033[4m'
 
 # Kamil
 def handle_first_menu_option(TodoMatrix):
@@ -13,12 +28,38 @@ def handle_first_menu_option(TodoMatrix):
 
 #Kamil
 def handle_second_menu_option(TodoMatrix):
-    print("2. IT works !")
+    quarters = ','.join(todo_matrix.QUOTER_TYPES)
+    user_input = input('Chose one of the following quarters ' + quarters + " : ")
+    if user_input not in todo_matrix.QUOTER_TYPES:
+        print('\n' + FAIL + "Bad quoter type" + ENDC)
+    else:
+        quarter = TodoMatrix.get_quarter(user_input)
+        if len(quarter.todo_items) == 0:
+            print('\n' + WARNING + 'The quater is empty !' + ENDC)
+        else:
+            for index, value in enumerate(quarter.todo_items):
+                if (not value.is_done):
+                    print(str(index + 1) + '. ' + str(value))
+                else:
+                    print(str(index + 1) + '. ' + str(value))
+
+    print()
 
 
 #Kamil
 def handle_third_menu_option(TodoMatrix):
-    print("3. IT works !")
+    user_input = input('Type information in the following syntax: \n<day>,<month>,<title><is important>'
+                       + ' (i.e: 17,11,new task,true): ')
+    task_information = user_input.split(',')
+    try:
+        deadline = datetime(2017, int(task_information[1]), int(task_information[0]))
+        title = task_information[2]
+        is_important = bool(task_information[3])
+        TodoMatrix.add_item(title, deadline, is_important)
+        TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
+        print(OKGREEN + "\nSuccessfuly added new task !\n" + ENDC)
+    except:
+        print('\n' + FAIL + "Your input is wrong or this task already exists !" + ENDC + '\n')
 
 
 #Łukasz
@@ -67,18 +108,17 @@ OPTIONS = {'1': ['Change status of TODO item', handle_first_menu_option],
 
 
 def main():
-    todo_matrix = TodoMatrix
+    todo_matrix = TodoMatrix()
     todo_matrix.add_items_from_file(ITEMS_CSV_FILE_PATH)
     while True:
         for key, value in OPTIONS.items():
-            print(key + '. ' + value[0])
+            print(OKGREEN + key + '. ' + value[DESCRIPTION_INDEX] + ENDC)
         user_input = input("Type number of option: ")
         if (user_input not in OPTIONS):
             os.system('clear')
         else:
             os.system('clear')
-            OPTIONS[user_input][1](todo_matrix)
-            return
+            OPTIONS[user_input][METHOD_INDEX](todo_matrix)
 
 
 if __name__ == "__main__":
