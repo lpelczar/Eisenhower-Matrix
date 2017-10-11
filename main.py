@@ -62,11 +62,7 @@ def handle_first_menu_option(TodoMatrix):
             print('\n' + WARNING + 'The quater is empty !' + ENDC)
         else:
             for index, value in enumerate(quarter.todo_items):
-                if (not value.is_done):
-                    print(get_color_of_todo_item(value) + str(index + 1) + '. ' + str(value) + ENDC)
-                else:
-                    print(str(index + 1) + '. ' + str(value))
-
+                print(get_color_of_todo_item(value) + str(index + 1) + '. ' + str(value) + ENDC)
     print()
 
 
@@ -82,7 +78,7 @@ def handle_second_menu_option(TodoMatrix):
     try:
         deadline = datetime(2017, int(task_information[1]), int(task_information[0]))
         title = task_information[2]
-        is_important = bool(task_information[3])
+        is_important = task_information[3].lower().replace(' ', '').__eq__("true")
         TodoMatrix.add_item(title, deadline, is_important)
         TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
         print(OKGREEN + "\nSuccessfuly added new task !\n" + ENDC)

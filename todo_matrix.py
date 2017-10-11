@@ -2,6 +2,7 @@ from datetime import datetime
 
 from todo_quarter import TodoQuarter
 from todo_item import TodoItem
+from texttable import Texttable
 
 URGENT_HOURS = 72
 SECONDS_IN_HOUR = 3600
@@ -74,7 +75,7 @@ class TodoMatrix():
             title = line[0]
             day, month = line[1].split('-')
             deadline = datetime(ACTUAL_YEAR, int(month), int(day))
-            is_important = True if len(line) > 2 else False
+            is_important = True if line[2] == 'important' else False
             quarter_name = TodoMatrix.get_item_quoter_type(deadline, is_important)
             self.todo_quarters[quarter_name].todo_items.append(TodoItem(title, deadline))
             self.todo_quarters[quarter_name].sort_items()
@@ -117,13 +118,13 @@ class TodoMatrix():
         Returns a todo_quarters list (an Eisenhower todo_matrix) formatted to string.
         :return: str
         """
-        output = ''
-        a = [['*IU* ' + str(self.get_quarter("IU")), '*IN* ' + str(self.get_quarter("IN"))],
-             ['*NU* ' + str(self.get_quarter("NU")), '*NN* ' + str(self.get_quarter("NN"))]]
-        for nested_list in a:
-            output += '\n'.join(nested_list) + '\n'
-        return output
+        t = Texttable()
+        t.add_rows(
+            [['', 'URGENT', 'NOT URGENT'],
+             ['IMPORTANT', self.get_table_row('IU'), self.get_table_row('IN')],
+             ['NOT IMPORTANT', self.get_table_row('NU'), self.get_table_row('NN')]])
 
+        return t.draw()
     @staticmethod
     def get_item_quoter_type(deadline, is_important):
         """
@@ -142,3 +143,18 @@ class TodoMatrix():
             return NOT_IMPORTANT_URGENT
         elif diff_hours > URGENT_HOURS and not is_important:
             return NOT_IMPORTANT_NOT_URGENT
+
+    def get_table_row(self, quoter_type):
+        """
+        Returns row as string
+        :param quoter_type: type of quoter
+        :return: str -> string that contains row
+        """
+        quarter = self.get_quarter(quoter_type)
+        output = ''
+        if len(quarter.todo_items) == 0:
+            return ' '
+        else:
+            for index, value in enumerate(quarter.todo_items):
+                output += str(index + 1) + '. ' + str(value) + '\n'
+        return output
