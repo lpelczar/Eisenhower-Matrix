@@ -88,14 +88,19 @@ class TodoMatrix():
         :return:
         """
         for k, v in self.todo_quarters.items():
-            self.todo_quarters[k].todo_items = [x for x in v.todo_items if not x.is_done]
+            self.todo_quarters[k] = [x for x in v.todo_items if not x.is_done]
 
     def __str__(self):
         """
         Returns a todo_quarters list (an Eisenhower todo_matrix) formatted to string.
         :return: str
         """
-        ...
+        output = ''
+        a = [['*IU* ' + str(self.get_quarter("IU")), '*IN* ' + str(self.get_quarter("IN"))],
+             ['*NU* ' + str(self.get_quarter("NU")), '*NN* ' + str(self.get_quarter("NN"))]]
+        for nested_list in a:
+            output += '\n'.join(nested_list) + '\n'
+        return output
 
     @staticmethod
     def get_item_quoter_type(deadline, is_important):
