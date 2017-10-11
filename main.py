@@ -1,6 +1,6 @@
 import os
 
-from todo_quarter import TodoQuarter
+
 from todo_matrix import TodoMatrix
 import todo_matrix
 from datetime import datetime
@@ -8,6 +8,8 @@ from datetime import datetime
 METHOD_INDEX = 1
 
 DESCRIPTION_INDEX = 0
+
+SECONDS_IN_HOUR = 3600
 
 ITEMS_CSV_FILE_PATH = 'todo_items.csv'
 QUARTERS = ['IU', 'IN', 'NU', 'NN']
@@ -20,15 +22,37 @@ WARNING = '\033[93m'
 FAIL = '\033[91m'
 ENDC = '\033[0m'
 BOLD = '\033[1m'
+WHITE = '\033[37m'
+BOLD_GREEN = '\033[1;32m'
 UNDERLINE = '\033[4m'
 
-# Kamil
-def handle_first_menu_option(TodoMatrix):
-    print("1. IT works !")
+
+def get_color_of_todo_item(TodoItem):
+    """
+    Function returns color based on TodoItem deadline
+    :param TodoItem: TodoItem
+    :return: str -> ascii color node
+    """
+    if TodoItem.is_done:
+        return WHITE
+    deadline = TodoItem.deadline
+    now = datetime.now()
+    diff_hours = (deadline - now).total_seconds() / SECONDS_IN_HOUR
+    if diff_hours > 72:
+        return BOLD_GREEN
+    elif diff_hours == 0:
+        return WARNING
+    else:
+        return FAIL
 
 
-#Kamil
+
 def handle_second_menu_option(TodoMatrix):
+    """
+    Lists tasks of selected quarter by deadline
+    :param TodoMatrix: TodoItem
+    :return: None
+    """
     quarters = ','.join(todo_matrix.QUOTER_TYPES)
     user_input = input('Chose one of the following quarters ' + quarters + " : ")
     if user_input not in todo_matrix.QUOTER_TYPES:
@@ -40,15 +64,20 @@ def handle_second_menu_option(TodoMatrix):
         else:
             for index, value in enumerate(quarter.todo_items):
                 if (not value.is_done):
-                    print(str(index + 1) + '. ' + str(value))
+                    print(get_color_of_todo_item(value) + str(index + 1) + '. ' + str(value) + ENDC)
                 else:
                     print(str(index + 1) + '. ' + str(value))
 
     print()
 
 
-#Kamil
+
 def handle_third_menu_option(TodoMatrix):
+    """
+    Adds new task
+    :param TodoMatrix: TodoItem
+    :return: None
+    """
     user_input = input('Type information in the following syntax: \n<day>,<month>,<title><is important>'
                        + ' (i.e: 17,11,new task,true): ')
     task_information = user_input.split(',')
@@ -125,15 +154,15 @@ def handle_ninth_menu_option(TodoMatrix):
     exit()
 
 
-OPTIONS = {'1': ['Change status of TODO item', handle_first_menu_option],
-           '2': ['Show TODO items sorted decreasing by deadline from chosen quarter', handle_second_menu_option],
-           '3': ['Add new TODO task', handle_third_menu_option],
-           '4': ['Mark TODO item', handle_fourth_menu_option],
-           '5': ['Unmark TODO item', handle_fifth_menu_option],
-           '6': ['Remove TODO item', handle_sixth_menu_option],
-           '7': ['Archive TODO items', handle_seventh_menu_option],
-           '8': ['Show Matrix Table', handle_eighth_menu_option],
-           '9': ['Exit program', handle_ninth_menu_option]}
+OPTIONS = {
+    '1': ['Show TODO items sorted decreasing by deadline from chosen quarter', handle_second_menu_option],
+    '2': ['Add new TODO task', handle_third_menu_option],
+    '3': ['Mark TODO item', handle_fourth_menu_option],
+    '4': ['Unmark TODO item', handle_fifth_menu_option],
+    '5': ['Remove TODO item', handle_sixth_menu_option],
+    '6': ['Archive TODO items', handle_seventh_menu_option],
+    '7': ['Show Matrix Table', handle_eighth_menu_option],
+    '8': ['Exit program', handle_ninth_menu_option]}
 
 
 def main():
