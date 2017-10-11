@@ -10,6 +10,7 @@ METHOD_INDEX = 1
 DESCRIPTION_INDEX = 0
 
 ITEMS_CSV_FILE_PATH = 'todo_items.csv'
+QUARTERS = ['IU', 'IN', 'NU', 'NN']
 
 # Colors
 HEADER = '\033[95m'
@@ -62,17 +63,45 @@ def handle_third_menu_option(TodoMatrix):
         print('\n' + FAIL + "Your input is wrong or this task already exists !" + ENDC + '\n')
 
 
-#Łukasz
 def handle_fourth_menu_option(TodoMatrix):
-    print("4. IT works !")
+    """
+    Mark chosen TodoItem as done.
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
+    while True:
+        quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
+        if quarter_name not in QUARTERS:
+            print('Wrong quarter! ', end='')
+            continue
+        item_number = input('Enter item number to mark it: ')
+        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+            print('Wrong number! ', end='')
+            continue
+        break
+    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].mark()
 
 
-#Łukasz
 def handle_fifth_menu_option(TodoMatrix):
-    print("5. IT works !")
+    """
+    Unmark chosen TodoItem.
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
+    while True:
+        quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
+        if quarter_name not in QUARTERS:
+            print('Wrong quarter! ', end='')
+            continue
+        item_number = input('Enter item number to unmark it: ')
+        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+            print('Wrong number! ', end='')
+            continue
+        break
+    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].unmark()
 
 
-#Łukasz
+#Łukasz Remove Todo Item
 def handle_sixth_menu_option(TodoMatrix):
     print("6. IT works !")
 
@@ -91,7 +120,7 @@ def handle_eighth_menu_option(TodoMatrix):
 #done
 def handle_ninth_menu_option(TodoMatrix):
     print("Thank you for using the program !")
-    TodoMatrix.archive_items
+    TodoMatrix.archive_items()
     TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
     exit()
 
