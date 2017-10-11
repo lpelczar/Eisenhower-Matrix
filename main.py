@@ -46,8 +46,7 @@ def get_color_of_todo_item(TodoItem):
         return FAIL
 
 
-
-def handle_second_menu_option(TodoMatrix):
+def handle_first_menu_option(TodoMatrix):
     """
     Lists tasks of selected quarter by deadline
     :param TodoMatrix: TodoItem
@@ -71,8 +70,7 @@ def handle_second_menu_option(TodoMatrix):
     print()
 
 
-
-def handle_third_menu_option(TodoMatrix):
+def handle_second_menu_option(TodoMatrix):
     """
     Adds new task
     :param TodoMatrix: TodoItem
@@ -92,7 +90,7 @@ def handle_third_menu_option(TodoMatrix):
         print('\n' + FAIL + "Your input is wrong or this task already exists !" + ENDC + '\n')
 
 
-def handle_fourth_menu_option(TodoMatrix):
+def handle_third_menu_option(TodoMatrix):
     """
     Mark chosen TodoItem as done.
     :param TodoMatrix: TodoMatrix
@@ -111,7 +109,7 @@ def handle_fourth_menu_option(TodoMatrix):
     TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].mark()
 
 
-def handle_fifth_menu_option(TodoMatrix):
+def handle_fourth_menu_option(TodoMatrix):
     """
     Unmark chosen TodoItem.
     :param TodoMatrix: TodoMatrix
@@ -130,7 +128,7 @@ def handle_fifth_menu_option(TodoMatrix):
     TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].unmark()
 
 
-def handle_sixth_menu_option(TodoMatrix):
+def handle_fifth_menu_option(TodoMatrix):
     """
     Removes TodoItem.
     :param TodoMatrix: TodoMatrix
@@ -150,18 +148,18 @@ def handle_sixth_menu_option(TodoMatrix):
 
 
 #done
-def handle_seventh_menu_option(TodoMatrix):
+def handle_sixth_menu_option(TodoMatrix):
     TodoMatrix.archive_items()
-    print("7. Items have been archived")
+    print('\n' + BOLD_GREEN + "Items have been archived !" + '\n' + ENDC)
 
 
 #done
-def handle_eighth_menu_option(TodoMatrix):
+def handle_seventh_menu_option(TodoMatrix):
     print(TodoMatrix)
 
 
 #done
-def handle_ninth_menu_option(TodoMatrix):
+def handle_eighth_menu_option(TodoMatrix):
     print("Thank you for using the program !")
     TodoMatrix.archive_items()
     TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
@@ -169,14 +167,14 @@ def handle_ninth_menu_option(TodoMatrix):
 
 
 OPTIONS = {
-    '1': ['Show TODO items sorted decreasing by deadline from chosen quarter', handle_second_menu_option],
-    '2': ['Add new TODO task', handle_third_menu_option],
-    '3': ['Mark TODO item', handle_fourth_menu_option],
-    '4': ['Unmark TODO item', handle_fifth_menu_option],
-    '5': ['Remove TODO item', handle_sixth_menu_option],
-    '6': ['Archive TODO items', handle_seventh_menu_option],
-    '7': ['Show Matrix Table', handle_eighth_menu_option],
-    '8': ['Exit program', handle_ninth_menu_option]}
+    '1': ['Show TODO items sorted decreasing by deadline from chosen quarter', handle_first_menu_option],
+    '2': ['Add new TODO task', handle_second_menu_option],
+    '3': ['Mark TODO item', handle_third_menu_option],
+    '4': ['Unmark TODO item', handle_fourth_menu_option],
+    '5': ['Remove TODO item', handle_fifth_menu_option],
+    '6': ['Archive TODO items', handle_sixth_menu_option],
+    '7': ['Show Matrix Table', handle_seventh_menu_option],
+    '8': ['Exit program', handle_eighth_menu_option]}
 
 
 def main():
