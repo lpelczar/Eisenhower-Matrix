@@ -4,6 +4,7 @@ from todo_quarter import TodoQuarter
 from todo_matrix import TodoMatrix
 
 ITEMS_CSV_FILE_PATH = 'todo_items.csv'
+QUARTERS = ['IU', 'IN', 'NU', 'NN']
 
 
 # Kamil
@@ -21,17 +22,45 @@ def handle_third_menu_option(TodoMatrix):
     print("3. IT works !")
 
 
-#Łukasz
 def handle_fourth_menu_option(TodoMatrix):
-    print("4. IT works !")
+    """
+    Mark chosen TodoItem as done.
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
+    while True:
+        quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
+        if quarter_name not in QUARTERS:
+            print('Wrong quarter! ', end='')
+            continue
+        item_number = input('Enter item number to mark it: ')
+        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+            print('Wrong number! ', end='')
+            continue
+        break
+    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].mark()
 
 
-#Łukasz
 def handle_fifth_menu_option(TodoMatrix):
-    print("5. IT works !")
+    """
+    Unmark chosen TodoItem.
+    :param TodoMatrix: TodoMatrix
+    :return: none
+    """
+    while True:
+        quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
+        if quarter_name not in QUARTERS:
+            print('Wrong quarter! ', end='')
+            continue
+        item_number = input('Enter item number to unmark it: ')
+        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+            print('Wrong number! ', end='')
+            continue
+        break
+    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].unmark()
 
 
-#Łukasz
+#Łukasz Remove Todo Item
 def handle_sixth_menu_option(TodoMatrix):
     print("6. IT works !")
 
@@ -46,11 +75,10 @@ def handle_seventh_menu_option(TodoMatrix):
 def handle_eighth_menu_option(TodoMatrix):
     print(TodoMatrix)
 
-
 #done
 def handle_ninth_menu_option(TodoMatrix):
     print("Thank you for using the program !")
-    TodoMatrix.archive_items
+    TodoMatrix.archive_items()
     TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
     exit()
 
@@ -67,7 +95,7 @@ OPTIONS = {'1': ['Change status of TODO item', handle_first_menu_option],
 
 
 def main():
-    todo_matrix = TodoMatrix
+    todo_matrix = TodoMatrix()
     todo_matrix.add_items_from_file(ITEMS_CSV_FILE_PATH)
     while True:
         for key, value in OPTIONS.items():
@@ -78,7 +106,6 @@ def main():
         else:
             os.system('clear')
             OPTIONS[user_input][1](todo_matrix)
-            return
 
 
 if __name__ == "__main__":

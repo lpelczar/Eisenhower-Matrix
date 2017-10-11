@@ -5,12 +5,14 @@ from todo_item import TodoItem
 
 URGENT_HOURS = 72
 SECONDS_IN_HOUR = 3600
+ACTUAL_YEAR = 2017
 IMPORTANT_URGENT = 'IU'
 IMPORTANT_NOT_URGENT = 'IN'
 NOT_IMPORTANT_URGENT = 'NU'
 NOT_IMPORTANT_NOT_URGENT = 'NN'
 QUOTER_TYPES = (IMPORTANT_URGENT, IMPORTANT_NOT_URGENT, NOT_IMPORTANT_URGENT, NOT_IMPORTANT_NOT_URGENT)
 BE_A_DATETIME_OBJECT = 'Incorrect deadline'
+
 
 class TodoMatrix():
     def __init__(self):
@@ -71,7 +73,7 @@ class TodoMatrix():
             line = line.split('|')
             title = line[0]
             day, month = line[1].split('-')
-            deadline = datetime(2017, int(month), int(day))
+            deadline = datetime(ACTUAL_YEAR, int(month), int(day))
             is_important = True if len(line) > 2 else False
             quarter_name = TodoMatrix.get_item_quoter_type(deadline, is_important)
             self.todo_quarters[quarter_name].todo_items.append(TodoItem(title, deadline))

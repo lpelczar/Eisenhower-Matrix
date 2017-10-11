@@ -1,6 +1,7 @@
 from datetime import datetime
 from todo_item import TodoItem
 
+STARTING_INDEX = 1
 
 class TodoQuarter():
 
@@ -52,4 +53,4 @@ class TodoQuarter():
         Hint: use instance method str() from class TodoItem
         """
         self.sort_items()
-        return ''.join([str(k+1) + '. ' + str(v) for k, v in enumerate(self.todo_items)])
+        return ''.join([str(k + STARTING_INDEX) + '. ' + str(v) for k, v in enumerate(self.todo_items)])
