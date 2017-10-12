@@ -5,11 +5,17 @@ from todo_matrix import TodoMatrix
 import todo_matrix
 from datetime import datetime
 
+YEAR = 2017
+
 METHOD_INDEX = 1
 
 DESCRIPTION_INDEX = 0
 
 SECONDS_IN_HOUR = 3600
+
+URGENT_HOURS = 72
+
+MINIMAL_QUARTER_TODOITEMS_LENGTH = 0
 
 ITEMS_CSV_FILE_PATH = 'todo_items.csv'
 QUARTERS = ['IU', 'IN', 'NU', 'NN']
@@ -41,7 +47,7 @@ def get_color_of_todo_item(TodoItem):
     diff_hours = (deadline - now).total_seconds() / SECONDS_IN_HOUR
     if deadline.day == now.day and deadline.month == now.month:
         return FAIL
-    elif diff_hours > 72:
+    elif diff_hours > URGENT_HOURS:
         return BOLD_GREEN
     elif diff_hours == 0:
         return ORANGE
@@ -63,7 +69,7 @@ def handle_first_menu_option(TodoMatrix):
         print('\n' + FAIL + "Bad quoter type" + ENDC)
     else:
         quarter = TodoMatrix.get_quarter(user_input)
-        if len(quarter.todo_items) == 0:
+        if len(quarter.todo_items) == MINIMAL_QUARTER_TODOITEMS_LENGTH:
             print('\n' + WARNING + 'The quater is empty !' + ENDC)
         else:
             for index, value in enumerate(quarter.todo_items):
@@ -81,7 +87,7 @@ def handle_second_menu_option(TodoMatrix):
                        + ' (i.e: 17,11,new task,true): ')
     task_information = user_input.split(',')
     try:
-        deadline = datetime(2017, int(task_information[1]), int(task_information[0]))
+        deadline = datetime(YEAR, int(task_information[1]), int(task_information[0]))
         title = task_information[2]
         is_important = task_information[3].lower().replace(' ', '').__eq__("true")
         TodoMatrix.add_item(title, deadline, is_important)

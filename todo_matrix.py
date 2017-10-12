@@ -4,6 +4,10 @@ from todo_quarter import TodoQuarter
 from todo_item import TodoItem
 from texttable import Texttable
 
+IS_IMPORTANT_IN_LINE_INDEX = 2
+TITLE_IN_LINE_INDEX = 0
+MINIMAL_QUARTER_TODOITEMS_LENGTH = 0
+INDEX_INCREMENTOR = 1
 URGENT_HOURS = 72
 SECONDS_IN_HOUR = 3600
 ACTUAL_YEAR = 2017
@@ -72,10 +76,10 @@ class TodoMatrix():
         lines = file.read().splitlines()
         for line in lines:
             line = line.split('|')
-            title = line[0]
+            title = line[TITLE_IN_LINE_INDEX]
             day, month = line[1].split('-')
             deadline = datetime(ACTUAL_YEAR, int(month), int(day))
-            is_important = True if line[2] == 'important' else False
+            is_important = True if line[IS_IMPORTANT_IN_LINE_INDEX] == 'important' else False
             quarter_name = TodoMatrix.get_item_quoter_type(deadline, is_important)
             self.todo_quarters[quarter_name].todo_items.append(TodoItem(title, deadline))
             self.todo_quarters[quarter_name].sort_items()
@@ -152,9 +156,9 @@ class TodoMatrix():
         """
         quarter = self.get_quarter(quoter_type)
         output = ''
-        if len(quarter.todo_items) == 0:
+        if len(quarter.todo_items) == MINIMAL_QUARTER_TODOITEMS_LENGTH:
             return ' '
         else:
             for index, value in enumerate(quarter.todo_items):
-                output += str(index + 1) + '. ' + str(value) + '\n'
+                output += str(index + INDEX_INCREMENTOR) + '. ' + str(value) + '\n'
         return output
