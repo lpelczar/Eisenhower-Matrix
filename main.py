@@ -114,8 +114,11 @@ def handle_third_menu_option(TodoMatrix):
             print('Wrong number! ', end='')
             continue
         break
-    print(OKGREEN + "\nSuccessfuly marked the task !\n" + ENDC)
+    os.system('clear')
     TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - STARTING_INDEX].mark()
+    print(TodoMatrix)
+    print(OKGREEN + "\nSuccessfuly marked the task !\n" + ENDC)
+
 
 
 def handle_fourth_menu_option(TodoMatrix):
@@ -136,8 +139,11 @@ def handle_fourth_menu_option(TodoMatrix):
             print('Wrong number! ', end='')
             continue
         break
-    print(OKGREEN + "\nSuccessfuly unmarked the task !\n" + ENDC)
+    os.system('clear')
     TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - STARTING_INDEX].unmark()
+    print(TodoMatrix)
+    print(OKGREEN + "\nSuccessfuly unmarked the task !\n" + ENDC)
+
 
 
 def handle_fifth_menu_option(TodoMatrix):
@@ -158,8 +164,11 @@ def handle_fifth_menu_option(TodoMatrix):
             print('Wrong number! ', end='')
             continue
         break
-    print(OKGREEN + "\nSuccessfuly removed the task !\n" + ENDC)
+    os.system('clear')
     TodoMatrix.todo_quarters[quarter_name].remove_item(int(item_number) - STARTING_INDEX)
+    print(TodoMatrix)
+    print(OKGREEN + "\nSuccessfuly removed the task !\n" + ENDC)
+
 
 
 def handle_sixth_menu_option(TodoMatrix):
@@ -205,6 +214,7 @@ OPTIONS = {
 
 
 def main():
+    os.system('clear')
     todo_matrix = TodoMatrix()
     todo_matrix.add_items_from_file(ITEMS_CSV_FILE_PATH)
     while True:
