@@ -111,7 +111,7 @@ def handle_third_menu_option(TodoMatrix):
         item_number = input('Enter item number to mark it: ')
         if item_number not in [str(x) for x in range(STARTING_INDEX,
                                len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
-            print('Wrong number! ', end='')
+            print('Wrong number! \n', end='')
             continue
         break
     print(OKGREEN + "\nSuccessfuly marked the task !\n" + ENDC)
@@ -133,7 +133,7 @@ def handle_fourth_menu_option(TodoMatrix):
         item_number = input('Enter item number to unmark it: ')
         if item_number not in [str(x) for x in range(STARTING_INDEX,
                                len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
-            print('Wrong number! ', end='')
+            print('Wrong number! \n', end='')
             continue
         break
     print(OKGREEN + "\nSuccessfuly unmarked the task !\n" + ENDC)
@@ -155,7 +155,7 @@ def handle_fifth_menu_option(TodoMatrix):
         item_number = input('Enter item number to remove: ')
         if item_number not in [str(x) for x in range(STARTING_INDEX,
                                len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
-            print('Wrong number! ', end='')
+            print('Wrong number! \n', end='')
             continue
         break
     print(OKGREEN + "\nSuccessfuly removed the task !\n" + ENDC)
@@ -205,6 +205,7 @@ OPTIONS = {
 
 
 def main():
+    os.system('clear')
     todo_matrix = TodoMatrix()
     todo_matrix.add_items_from_file(ITEMS_CSV_FILE_PATH)
     while True:
