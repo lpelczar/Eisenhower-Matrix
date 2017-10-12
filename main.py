@@ -83,7 +83,7 @@ def handle_second_menu_option(TodoMatrix):
     :return: None
     """
     user_input = input('Type information in the following syntax: \n<day>,<month>,<title><is important>'
-                       + ' (i.e: 17,11,new task,true): ')
+                       + ' (i.e: 17,11,new task,true): \n')
     task_information = user_input.split(',')
     try:
         deadline = datetime(YEAR, int(task_information[MONTH_INDEX]), int(task_information[DAY_INDEX]))
@@ -108,12 +108,14 @@ def handle_third_menu_option(TodoMatrix):
         print(TodoMatrix)
         quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
         if quarter_name not in QUARTERS:
-            print('Wrong quarter! ', end='')
+            os.system('clear')
+            print('Wrong quarter! ')
             continue
         item_number = input('Enter item number to mark it: ')
         if item_number not in [str(x) for x in range(STARTING_INDEX,
                                len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
-            print('Wrong number! \n', end='')
+            os.system('clear')
+            print('Wrong number!')
             continue
         break
     os.system('clear')
@@ -133,12 +135,14 @@ def handle_fourth_menu_option(TodoMatrix):
         print(TodoMatrix)
         quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
         if quarter_name not in QUARTERS:
-            print('Wrong quarter! ', end='')
+            os.system('clear')
+            print('Wrong quarter! ')
             continue
         item_number = input('Enter item number to unmark it: ')
         if item_number not in [str(x) for x in range(STARTING_INDEX,
                                len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
-            print('Wrong number! \n', end='')
+            os.system('clear')
+            print('Wrong number!')
             continue
         break
     os.system('clear')
@@ -158,12 +162,14 @@ def handle_fifth_menu_option(TodoMatrix):
         print(TodoMatrix)
         quarter_name = input('Enter quarter name (IU, IN, NU, NN): ')
         if quarter_name not in QUARTERS:
-            print('Wrong quarter! ', end='')
+            os.system('clear')
+            print('Wrong quarter! ')
             continue
         item_number = input('Enter item number to remove: ')
         if item_number not in [str(x) for x in range(STARTING_INDEX,
                                len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
-            print('Wrong number! \n', end='')
+            os.system('clear')
+            print('Wrong number!')
             continue
         break
     os.system('clear')
