@@ -91,6 +91,8 @@ def handle_second_menu_option(TodoMatrix):
         is_important = task_information[IS_IMPORTANT_INDEX].lower().replace(' ', '').__eq__("true")
         TodoMatrix.add_item(title, deadline, is_important)
         TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
+        os.system('clear')
+        print(TodoMatrix)
         print(OKGREEN + "\nSuccessfuly added new task !\n" + ENDC)
     except:
         print('\n' + FAIL + "Your input is wrong or this task already exists !" + ENDC + '\n')
