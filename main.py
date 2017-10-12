@@ -20,6 +20,7 @@ OKBLUE = '\033[94m'
 OKGREEN = '\033[92m'
 WARNING = '\033[93m'
 FAIL = '\033[91m'
+ORANGE = '\033[202m'
 ENDC = '\033[0m'
 BOLD = '\033[1m'
 WHITE = '\033[37m'
@@ -38,12 +39,16 @@ def get_color_of_todo_item(TodoItem):
     deadline = TodoItem.deadline
     now = datetime.now()
     diff_hours = (deadline - now).total_seconds() / SECONDS_IN_HOUR
-    if diff_hours > 72:
+    if deadline.day == now.day and deadline.month == now.month:
+        return FAIL
+    elif diff_hours > 72:
         return BOLD_GREEN
     elif diff_hours == 0:
-        return WARNING
+        return ORANGE
+    elif diff_hours < 0:
+        return WHITE
     else:
-        return FAIL
+        return WARNING
 
 
 def handle_first_menu_option(TodoMatrix):
