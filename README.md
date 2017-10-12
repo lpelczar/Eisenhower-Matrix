@@ -2,7 +2,7 @@
 
 ## The story
 
-The Eisenhower Matrix is a great tool for time managing and improve your productivity. It is often used in IT projects teams to prioritize tasks. 
+The Eisenhower Matrix is a great tool for time managing and improve your productivity. It is often used in IT projects teams to prioritize tasks.
 
 Bob is a beginner Codecooler. He is a good self-learner, but he has a problem to focus on the only one thing in one moment. That's the reason that he sometimes feels lost in his job. Please help him to improve his efficiency and implement for him Eisenhower Matrix Application. He precised his expectations the user story.
 
@@ -17,7 +17,7 @@ Bob is a beginner Codecooler. He is a good self-learner, but he has a problem to
 ## The user story
 
 1. As a user I would like to choose a status of shown TODO items:
-  
+
   - urgent & important items
   - not urgent & important items
   - urgent & not important items
@@ -142,16 +142,16 @@ __Attributes__
 __Instance methods__
 
 * ##### ` __init__(self, title, deadline)`
-  
+
   Constructs an ToDoItem object
   Raises ValueError if type of any argument is incorrect
 
 * `mark(self)`
-  
+
   Sets the object's * is_done * attribute to True
 
 * `unmark(self)`
-  
+
   Sets the object's * is_done * attribute to False
 
 * `__str__(self)`
@@ -160,11 +160,11 @@ __Instance methods__
   Format of deadline is 'day-month'
 
   Expecting output for example done item:
-  
+
   `[x] 12-6 submit assignment`
 
   Expecting output for example undone item:
-  
+
   `[ ] 28-6 submit assignment`
 
 ### `todo_quarter.py`
@@ -213,7 +213,7 @@ __Instance methods__
 
   `1. [ ] 9-6  go to the doctor
    2. [x] 11-6 submit assignment`
-  
+
   Hint: use instance method *__str__()* from class *TodoItem*
 
 
@@ -228,9 +228,9 @@ __Attributes__
 
   - data: dictionary
   - description: contains *TodoQuarter* objects
-  
+
     key: string - status of todo_quarter, value: ToDoQuarter object
-        
+
         possible keys of TODO quarter:
         - 'IU' means that todo_quarter contains important todo_items & urgent
         - 'IN' means that todo_quarter contains important todo_items & not urgent
@@ -252,7 +252,7 @@ __Instance methods__
 * `add_item(self, title, deadline, is_important=False)`
 
   Adds new item to dictionary *todo_quarters* using adequate key. You should use method *add_item* from *TodoQuarter* class.
-  
+
   Raises *TypeError* if an argument *deadline* is not an instance of Datetime class.
 
 * `add_items_from_file(self, file_name)`
@@ -260,19 +260,19 @@ __Instance methods__
   Reads data from *file_name.csv* file and append *TodoItem* objects to attributes *todo_items* in the properly *TodoQuarter*   objects.
   Raises *FileNotFoundError* if a file doesn't exist.
   Every item is written in a separate line the following format:
-  
+
   `title|day-month|is_important`
-  
+
   If *is_important* is equal to False then last element is en empty string. Otherwise the last element is an arbitrary string
   If the last element of line is an empty string, *is_important* is equal to False - it means that the item should be assign     to a not important TODO quarter. Otherwise item should be assign to an important TODO quarter.
-  
+
 * `save_items_to_file(self, file_name)`
 
   Writes all details about TODO items to *file_name.csv* file
   Every item is written in a separate line the following format:
-  
+
   `title|day-month|is_important`
-  
+
   If *is_important* contains False then the last element of line should be an empty string. Otherwise last element is an         arbitrary string.
 
 * `archive_items(self)`
@@ -282,4 +282,55 @@ __Instance methods__
 * `__str__(self)`
 
   Returns a todo_quarters list (an Eisenhower todo_matrix) formatted to string.
-  
+
+* `get_item_quoter_type(deadline, is_important)`
+
+  Returns the type of quoter to which item should be added. This method should be static method.
+
+* `get_table_row(self, quoter_type)`
+
+  Returns row of a table as a string.
+
+### `main.py`
+
+__Functions__
+
+* `get_color_of_todo_item(TodoItem)`
+
+  Function returns color based on TodoItem deadline.
+
+* `handle_first_menu_option(TodoMatrix)`
+
+  Lists tasks of selected quarter by deadline.
+
+* `handle_second_menu_option(TodoMatrix)`  
+
+  Adds new task
+
+* `handle_third_menu_option(TodoMatrix)`
+
+  Mark chosen TodoItem as done.
+
+* `handle_fourth_menu_option(TodoMatrix)`
+
+  Unmark chosen TodoItem.
+
+* `handle_fifth_menu_option(TodoMatrix)`
+
+  Removes TodoItem.
+
+* `handle_sixth_menu_option(TodoMatrix)`
+
+  Archives all marked TodoItems.
+
+* `handle_seventh_menu_option(TodoMatrix)`  
+
+  Prints formatted matrix table.
+
+* `handle_eighth_menu_option(TodoMatrix)`
+
+  Close the program, archive all TodoItems and save unsaved data.
+
+* `main()`
+
+  Handle menu.
