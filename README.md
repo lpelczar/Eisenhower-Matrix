@@ -117,7 +117,49 @@ Bob is a beginner Codecooler. He is a good self-learner, but he has a problem to
 ## The specification
 
 ### `main.py`
-TODO
+
+__Functions__
+
+* `get_color_of_todo_item(TodoItem)`
+
+  Function returns color based on TodoItem deadline.
+
+* `handle_first_menu_option(TodoMatrix)`
+
+  Lists tasks of selected quarter by deadline.
+
+* `handle_second_menu_option(TodoMatrix)`  
+
+  Adds new task
+
+* `handle_third_menu_option(TodoMatrix)`
+
+  Mark chosen TodoItem as done.
+
+* `handle_fourth_menu_option(TodoMatrix)`
+
+  Unmark chosen TodoItem.
+
+* `handle_fifth_menu_option(TodoMatrix)`
+
+  Removes TodoItem.
+
+* `handle_sixth_menu_option(TodoMatrix)`
+
+  Archives all marked TodoItems.
+
+* `handle_seventh_menu_option(TodoMatrix)`  
+
+  Prints formatted matrix table.
+
+* `handle_eighth_menu_option(TodoMatrix)`
+
+  Close the program, archive all TodoItems and save unsaved data.
+
+* `main()`
+
+  Handle menu.
+
 
 ### `todo_item.py`
 
@@ -290,47 +332,3 @@ __Instance methods__
 * `get_table_row(self, quoter_type)`
 
   Returns row of a table as a string.
-
-### `main.py`
-
-__Functions__
-
-* `get_color_of_todo_item(TodoItem)`
-
-  Function returns color based on TodoItem deadline.
-
-* `handle_first_menu_option(TodoMatrix)`
-
-  Lists tasks of selected quarter by deadline.
-
-* `handle_second_menu_option(TodoMatrix)`  
-
-  Adds new task
-
-* `handle_third_menu_option(TodoMatrix)`
-
-  Mark chosen TodoItem as done.
-
-* `handle_fourth_menu_option(TodoMatrix)`
-
-  Unmark chosen TodoItem.
-
-* `handle_fifth_menu_option(TodoMatrix)`
-
-  Removes TodoItem.
-
-* `handle_sixth_menu_option(TodoMatrix)`
-
-  Archives all marked TodoItems.
-
-* `handle_seventh_menu_option(TodoMatrix)`  
-
-  Prints formatted matrix table.
-
-* `handle_eighth_menu_option(TodoMatrix)`
-
-  Close the program, archive all TodoItems and save unsaved data.
-
-* `main()`
-
-  Handle menu.
