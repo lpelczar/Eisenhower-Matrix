@@ -11,8 +11,10 @@ class TodoItem():
         :param title: str -> task title
         :param deadline: datetime -> task deadline
         """
-        if not isinstance(deadline, datetime): raise ValueError(BE_A_DATETIME_OBJECT)
-        if not isinstance(title, str): raise ValueError(BE_A_STRING)
+        if not isinstance(deadline, datetime):
+            raise ValueError(BE_A_DATETIME_OBJECT)
+        if not isinstance(title, str):
+            raise ValueError(BE_A_STRING)
         self.title = title
         self.deadline = deadline
         self.is_done = False
@@ -43,5 +45,8 @@ class TodoItem():
         assignment_day = str(self.deadline.day)
         assignment_month = str(self.deadline.month)
         is_assignment_done_char = "x" if self.is_done else " "
-        output = "[" + is_assignment_done_char + "]" + " " + assignment_day + "-" + assignment_month + '  ' + self.title
+
+        output = "[" + is_assignment_done_char + "]" + " " + assignment_day
+        + "-" + assignment_month + '  ' + self.title
+
         return output
