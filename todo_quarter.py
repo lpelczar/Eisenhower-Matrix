@@ -4,6 +4,7 @@ from todo_item import TodoItem
 
 STARTING_INDEX = 1
 
+
 class TodoQuarter():
 
     def __init__(self):
@@ -23,7 +24,8 @@ class TodoQuarter():
         Append TodoItem object to todo_items sorted decreasing by deadline. Raises TypeError
         if an argument deadline is not an instance of Datetime class.
         """
-        if not isinstance(deadline, datetime): raise ValueError('Deadline must be a Datetime object')
+        if not isinstance(deadline, datetime):
+            raise ValueError('Deadline must be a Datetime object')
         self.todo_items.append(TodoItem(title, deadline))
         self.sort_items()
 
