@@ -47,12 +47,10 @@ class TodoMatrix():
         :param is_important: bool -> task importance
         :return: None
         """
-        if not isinstance(deadline, datetime): raise TypeError(BE_A_DATETIME_OBJECT)
+        if not isinstance(deadline, datetime):
+            raise TypeError(BE_A_DATETIME_OBJECT)
         quoter_type = TodoMatrix.get_item_quoter_type(deadline, is_important)
         self.todo_quarters.get(quoter_type, None).add_item(title, deadline)
-
-
-
 
     def add_items_from_file(self, file_name):
         """
@@ -74,6 +72,7 @@ class TodoMatrix():
             raise FileNotFoundError
 
         lines = file.read().splitlines()
+
         for line in lines:
             line = line.split('|')
             title = line[TITLE_IN_LINE_INDEX]
@@ -85,9 +84,6 @@ class TodoMatrix():
             self.todo_quarters[quarter_name].sort_items()
 
         file.close()
-
-        
-
 
     def save_items_to_file(self, file_name):
         """
@@ -129,6 +125,7 @@ class TodoMatrix():
              ['NOT IMPORTANT (N)', self.get_table_row('NU'), self.get_table_row('NN')]])
 
         return t.draw()
+
     @staticmethod
     def get_item_quoter_type(deadline, is_important):
         """
