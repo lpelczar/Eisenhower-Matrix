@@ -6,17 +6,16 @@ import todo_matrix
 from datetime import datetime
 
 YEAR = 2017
-
 METHOD_INDEX = 1
-
 DESCRIPTION_INDEX = 0
-
 SECONDS_IN_HOUR = 3600
-
 URGENT_HOURS = 72
-
 MINIMAL_QUARTER_TODOITEMS_LENGTH = 0
-
+STARTING_INDEX = 1
+MONTH_INDEX = 1
+DAY_INDEX = 0
+TITLE_INDEX = 2
+IS_IMPORTANT_INDEX = 3
 ITEMS_CSV_FILE_PATH = 'todo_items.csv'
 QUARTERS = ['IU', 'IN', 'NU', 'NN']
 
@@ -73,7 +72,7 @@ def handle_first_menu_option(TodoMatrix):
             print('\n' + WARNING + 'The quater is empty !' + ENDC)
         else:
             for index, value in enumerate(quarter.todo_items):
-                print(get_color_of_todo_item(value) + str(index + 1) + '. ' + str(value) + ENDC)
+                print(get_color_of_todo_item(value) + str(index + STARTING_INDEX) + '. ' + str(value) + ENDC)
     print()
 
 
@@ -87,9 +86,9 @@ def handle_second_menu_option(TodoMatrix):
                        + ' (i.e: 17,11,new task,true): ')
     task_information = user_input.split(',')
     try:
-        deadline = datetime(YEAR, int(task_information[1]), int(task_information[0]))
-        title = task_information[2]
-        is_important = task_information[3].lower().replace(' ', '').__eq__("true")
+        deadline = datetime(YEAR, int(task_information[MONTH_INDEX]), int(task_information[DAY_INDEX]))
+        title = task_information[TITLE_INDEX]
+        is_important = task_information[IS_IMPORTANT_INDEX].lower().replace(' ', '').__eq__("true")
         TodoMatrix.add_item(title, deadline, is_important)
         TodoMatrix.save_items_to_file(ITEMS_CSV_FILE_PATH)
         print(OKGREEN + "\nSuccessfuly added new task !\n" + ENDC)
@@ -110,12 +109,13 @@ def handle_third_menu_option(TodoMatrix):
             print('Wrong quarter! ', end='')
             continue
         item_number = input('Enter item number to mark it: ')
-        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+        if item_number not in [str(x) for x in range(STARTING_INDEX,
+                               len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
             print('Wrong number! ', end='')
             continue
         break
     print(OKGREEN + "\nSuccessfuly marked the task !\n" + ENDC)
-    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].mark()
+    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - STARTING_INDEX].mark()
 
 
 def handle_fourth_menu_option(TodoMatrix):
@@ -131,12 +131,13 @@ def handle_fourth_menu_option(TodoMatrix):
             print('Wrong quarter! ', end='')
             continue
         item_number = input('Enter item number to unmark it: ')
-        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+        if item_number not in [str(x) for x in range(STARTING_INDEX,
+                               len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
             print('Wrong number! ', end='')
             continue
         break
     print(OKGREEN + "\nSuccessfuly unmarked the task !\n" + ENDC)
-    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - 1].unmark()
+    TodoMatrix.todo_quarters[quarter_name].todo_items[int(item_number) - STARTING_INDEX].unmark()
 
 
 def handle_fifth_menu_option(TodoMatrix):
@@ -152,12 +153,13 @@ def handle_fifth_menu_option(TodoMatrix):
             print('Wrong quarter! ', end='')
             continue
         item_number = input('Enter item number to remove: ')
-        if item_number not in [str(x) for x in range(1, len(TodoMatrix.todo_quarters[quarter_name].todo_items) + 1)]:
+        if item_number not in [str(x) for x in range(STARTING_INDEX,
+                               len(TodoMatrix.todo_quarters[quarter_name].todo_items) + STARTING_INDEX)]:
             print('Wrong number! ', end='')
             continue
         break
     print(OKGREEN + "\nSuccessfuly removed the task !\n" + ENDC)
-    TodoMatrix.todo_quarters[quarter_name].remove_item(int(item_number) - 1)
+    TodoMatrix.todo_quarters[quarter_name].remove_item(int(item_number) - STARTING_INDEX)
 
 
 def handle_sixth_menu_option(TodoMatrix):

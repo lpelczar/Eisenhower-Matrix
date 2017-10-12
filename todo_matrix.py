@@ -11,6 +11,7 @@ INDEX_INCREMENTOR = 1
 URGENT_HOURS = 72
 SECONDS_IN_HOUR = 3600
 ACTUAL_YEAR = 2017
+DAY_MONTH_INDEX = 1
 IMPORTANT_URGENT = 'IU'
 IMPORTANT_NOT_URGENT = 'IN'
 NOT_IMPORTANT_URGENT = 'NU'
@@ -76,7 +77,7 @@ class TodoMatrix():
         for line in lines:
             line = line.split('|')
             title = line[TITLE_IN_LINE_INDEX]
-            day, month = line[1].split('-')
+            day, month = line[DAY_MONTH_INDEX].split('-')
             deadline = datetime(ACTUAL_YEAR, int(month), int(day))
             is_important = True if line[IS_IMPORTANT_IN_LINE_INDEX] == 'important' else False
             quarter_name = TodoMatrix.get_item_quoter_type(deadline, is_important)
